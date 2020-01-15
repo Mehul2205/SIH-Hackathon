@@ -1,0 +1,3 @@
+INSERT INTO `timetable` (`i`, `id`, `room`, `teacher`, `batch`, `subject`, `day`, `time`) VALUES ('3', '1', '1', '3', '1', '3', '1', '4');
+INSERT INTO `timetable` (`i`, `id`, `room`, `teacher`, `batch`, `subject`, `day`, `time`) VALUES ('4', '1', '1', '1', '1', '1', '2', '2');
+INSERT INTO `timetable` (`i`, `id`, `room`, `teacher`, `batch`, `subject`, `day`, `time`) VALUES ('5', '1', '2', '3', '3', '4', '3', '7');
