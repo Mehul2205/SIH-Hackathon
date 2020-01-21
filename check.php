@@ -32,20 +32,21 @@ if (isset($_GET['room']))
     $time1 = $_GET['time'];
 
 
-    $sql1 = "SELECT id FROM `timetable` WHERE id=1 and room =".$room1." and batch =".$batch1." and day =".$day1." and time =".$time1.";";
+    $sql1 = "SELECT id FROM `timetable` WHERE room =".$room1." and batch =".$batch1." and day =".$day1." and time =".$time1.";";
     $result = $conn->query($sql1);
     if($result->num_rows>0){
         echo 0;
     } else{
         echo 1;
-        $sql1 = "SELECT i FROM `timetable` WHERE id='".$_SESSION['id']."' and batch =".$batch1." and day =".$day1." and time =".$time1.";";
+        $sql1 = "SELECT i FROM `timetable` WHERE batch =".$batch1." and day =".$day1." and time =".$time1.";";
         $result = $conn->query($sql1);
 
         if($result->num_rows>0){
-
-            $row = $result->fetch_assoc();
-            $sql2 = "UPDATE timetable SET room =".$_GET['room']." WHERE i =".row['i'].";";
-            $result = $conn->query($sql2);    
+            while($row = $result->fetch_assoc()){
+                // echo $row['i'];
+                $sql2 = "UPDATE timetable SET room =".$_GET['room']." WHERE i =".$row['i'].";";
+                $result1 = $conn->query($sql2);    
+            }
         } else{
             $sql3 = $conn->prepare("INSERT INTO timetable (`id`, `room`, `batch`, `day`, `time`) VALUES (?, ?, ?, ?, ?);");
             $sql3->bind_param('sssss', $_SESSION['id'], $room1, $batch1, $day1, $time1);
@@ -63,19 +64,21 @@ elseif (isset($_GET['teacher']))
     $time1 = $_GET['time'];
 
 
-    $sql1 = "SELECT id FROM `timetable` WHERE id='".$_SESSION['id']."' and teacher =".$teacher1." and batch =".$batch1." and day =".$day1." and time =".$time1.";";
+    $sql1 = "SELECT id FROM `timetable` WHERE teacher =".$teacher1." and batch =".$batch1." and day =".$day1." and time =".$time1.";";
     $result = $conn->query($sql1);
     if($result->num_rows>0){
         echo False;
     } else{
         echo True;
-        $sql1 = "SELECT i FROM `timetable` WHERE id='".$_SESSION['id']."' and batch =".$batch1." and day =".$day1." and time =".$time1.";";
+        $sql1 = "SELECT i FROM `timetable` WHERE batch =".$batch1." and day =".$day1." and time =".$time1.";";
         $result = $conn->query($sql1);
         if($result->num_rows>0){
             
-            $row = $result->fetch_assoc();
-            $sql2 = "UPDATE timetable SET teacher =".$_GET['teacher']." WHERE i =".row['i'].";";
-            $result = $conn->query($sql1);
+            while($row = $result->fetch_assoc()){
+                // echo $row['i'];
+                $sql2 = "UPDATE timetable SET teacher =".$_GET['teacher']." WHERE i =".$row['i'].";";
+                $result1 = $conn->query($sql2);    
+            }
         } else{
             $sql1 = $conn->prepare("INSERT INTO timetable (id, teacher, batch, day, time) VALUES (?, ?, ?, ?, ?)");
             $sql1->bind_params('sssss', $_SESSION['id'], $teacher1, $batch1, $day1, $time1);
@@ -86,7 +89,7 @@ elseif (isset($_GET['teacher']))
 elseif (isset($_GET['batch']))
 {
     $batch1 = $_GET['batch'];
-    $sql1 = "SELECT day, time, subject, teacher, room FROM `timetable` WHERE id='".$_SESSION['id']."' and batch =".$batch1.";";
+    $sql1 = "SELECT day, time, subject, teacher, room FROM `timetable` WHERE batch =".$batch1.";";
     $result = $conn->query($sql1);
     $myObject = new stdClass();
     $i = 0;
