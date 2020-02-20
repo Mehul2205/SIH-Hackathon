@@ -12,11 +12,11 @@
             $_SESSION['id']=$result['id'];
             $_SESSION['name']=$result['firstname'];
             $_SESSION['lastname']=$result['lastname'];
-            header('Location:detail.php');
+            header('Location:index.php');
         }
         
         else{
-            header('Location:index.php?invalid=True');
+            header('Location:index1.php?invalid=True');
         }
     }
 

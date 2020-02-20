@@ -7,14 +7,14 @@ session_start();
 // $result = $conn->query($sql1);
 
 // if($result->num_rows>0){
-// 	while($row = $result->fetch_assoc()){
+//  while($row = $result->fetch_assoc()){
 //     $room = $row['room'];
 //     $teacher = $row['teacher'];
 //     $batch = $row['batch'];
 //     $subject = $row['subject'];
 //     $day = $row['day'];
 //     $time = $row['time'];
-// 	}
+//  }
 // }else{
 //     $room = NULL;
 //     $teacher = NULL;
@@ -39,6 +39,7 @@ if (isset($_GET['room']))
     } else{
         echo 1;
         $sql1 = "SELECT i FROM `timetable` WHERE batch =".$batch1." and day =".$day1." and time =".$time1.";";
+        // echo $sql1;
         $result = $conn->query($sql1);
 
         if($result->num_rows>0){
@@ -67,10 +68,11 @@ elseif (isset($_GET['teacher']))
     $sql1 = "SELECT id FROM `timetable` WHERE teacher =".$teacher1." and batch =".$batch1." and day =".$day1." and time =".$time1.";";
     $result = $conn->query($sql1);
     if($result->num_rows>0){
-        echo False;
+        echo 0;
     } else{
         echo True;
         $sql1 = "SELECT i FROM `timetable` WHERE batch =".$batch1." and day =".$day1." and time =".$time1.";";
+        // echo $sql1;
         $result = $conn->query($sql1);
         if($result->num_rows>0){
             
@@ -80,9 +82,9 @@ elseif (isset($_GET['teacher']))
                 $result1 = $conn->query($sql2);    
             }
         } else{
-            $sql1 = $conn->prepare("INSERT INTO timetable (id, teacher, batch, day, time) VALUES (?, ?, ?, ?, ?)");
-            $sql1->bind_params('sssss', $_SESSION['id'], $teacher1, $batch1, $day1, $time1);
-            $sq1->execute();
+            $sql1 = $conn->prepare("INSERT INTO timetable (`id`, `teacher`, `batch`, `day`, `time`) VALUES (?, ?, ?, ?, ?)");
+            $sql1->bind_param('sssss', $_SESSION['id'], $teacher1, $batch1, $day1, $time1);
+            $sql1->execute();
         }
     }
 }

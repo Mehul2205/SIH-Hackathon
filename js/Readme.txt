@@ -1,0 +1,1 @@
+Paste all these files in the js folder in the root directory. 

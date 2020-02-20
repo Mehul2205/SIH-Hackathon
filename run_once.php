@@ -2,7 +2,7 @@
 require 'server.php';
 
 
-$sql="CREATE TABLE `db`.`TimeTable` (  `i` INT NOT NULL AUTO_INCREMENT , `id` INT NOT NULL , `room` INT, `teacher` INT, `batch` INT, `subject` INT, `day` INT, `time` INT, PRIMARY KEY (`i`)) ENGINE = InnoDB;";
+$sql="CREATE TABLE `db`.`TimeTable` (  `i` INT NOT NULL AUTO_INCREMENT , `id` INT NOT NULL , `room` INT , `teacher` INT, `batch` INT NOT NULL, `subject` INT NOT NULL , `day` INT NOT NULL, `time` INT NOT NULL, PRIMARY KEY (`i`)) ENGINE = InnoDB;";
 if ($conn->query($sql) === FALSE)
 {
     echo "Database error 2". $conn->error;
